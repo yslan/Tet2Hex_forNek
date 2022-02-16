@@ -38,6 +38,17 @@ This is a subset of my other code, SphereMesh, for the pebble-bed mesh generatio
      P(:,3) = H*rand(1,npts); %z-coordinate of a point
   ```
 
+  - Template 4: uniform points in an unit sphere
+  ```
+     npts=1000;
+     x=normrnd(0,1,npts,1);
+     y=normrnd(0,1,npts,1);
+     z=normrnd(0,1,npts,1);
+     R=rand(npts,1).^(1/3);
+     R=R./sqrt(x.^2+y.^2+z.^2);
+     P = [x.*R, y.*R, z.*R];
+  ```
+
 - The code will generate the following fies under the `output/` directory
   - `mesh.re2`: Nek re2
   - `mesh.co2`: Nek co2

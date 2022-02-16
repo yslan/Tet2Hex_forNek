@@ -24,7 +24,7 @@ disp_step(0,'Load points');
 % [X,Y,Z] = meshgrid(xx,yy,zz);
 % P=[X(:),Y(:),Z(:)];
 
-% Template 3: random ponts in a 3D box
+% Template 3: random points in a 3D box
 L = 3; W = 2; H = 1; % length, width and height of box
 npts = 201;  % # pts
 
@@ -33,6 +33,14 @@ P(:,1) = L*rand(1,npts); %x-coordinate of a point
 P(:,2) = W*rand(1,npts); %y-coordinate of a point
 P(:,3) = H*rand(1,npts); %z-coordinate of a point
 
+% % Template 4: uniform points in a unit sphere, E1,335,096
+% npts=50000;
+% x=normrnd(0,1,npts,1);
+% y=normrnd(0,1,npts,1);
+% z=normrnd(0,1,npts,1);
+% R=rand(npts,1).^(1/3);
+% R = R./sqrt(x.^2+y.^2+z.^2);
+% P=[x.*R,y.*R,z.*R];
 
 if(ifplot);
    scatter3(P(:,1),P(:,2),P(:,3),'MarkerFaceColor','b','MarkerEdgeColor','b'); end
