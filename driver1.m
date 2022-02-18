@@ -4,13 +4,13 @@ warning off;clear all; close all;format compact;profile off;diary off;restoredef
 
 cname='output'; % All new files will go this folder
 
-ifplot = 0; % print initial points distribution, this is expansive for large #P 
+ifplot = 0; % print initial points distribution, this is expensive for large #P 
 ifdump = 1; % dump mesh into vtk file for further inspection
 
 gen_logfile(cname,1); % auto gen logfile
 
 
-%% Step 0: Input points
+%% Step 0: Input points (#pts,3) 
 disp_step(0,'Load points');
 
 % % Template 1: single tet
@@ -41,6 +41,11 @@ P(:,3) = H*rand(1,npts); %z-coordinate of a point
 % R=rand(npts,1).^(1/3);
 % R = R./sqrt(x.^2+y.^2+z.^2);
 % P=[x.*R,y.*R,z.*R];
+
+% % Template 5: example for reading points from file
+% % format: use this save to see the format
+% %   save('output/input.txt','P','-ascii'); % use this to save points
+% P = load('data/input.txt'); P = P(:,1:3);
 
 if(ifplot);
    scatter3(P(:,1),P(:,2),P(:,3),'MarkerFaceColor','b','MarkerEdgeColor','b'); end

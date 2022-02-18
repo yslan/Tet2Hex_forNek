@@ -33,9 +33,9 @@ This is a subset of my other code, SphereMesh, for the pebble-bed mesh generatio
      npts = 201;  % # pts
 
      P = zeros(npts,3); rng(23); % for reproducible
-     P(:,1) = L*rand(1,npts); %x-coordinate of a point
-     P(:,2) = W*rand(1,npts); %y-coordinate of a point
-     P(:,3) = H*rand(1,npts); %z-coordinate of a point
+     P(:,1) = L*rand(1,npts); % x-coordinate of a point
+     P(:,2) = W*rand(1,npts); % y-coordinate of a point
+     P(:,3) = H*rand(1,npts); % z-coordinate of a point
   ```
 
   - Template 4: uniform points in an unit sphere
@@ -49,18 +49,24 @@ This is a subset of my other code, SphereMesh, for the pebble-bed mesh generatio
      P = [x.*R, y.*R, z.*R];
   ```
 
-- The code will generate the following fies under the `output/` directory
+  - Template 5: read points from a file   
+    Use `save('output/input.txt','P','-ascii');` to see the example format
+  ```
+     P = load('data/input.txt'); P = P(:,1:3);
+  ```
+
+- The code will generate the following files under the `output/` directory
   - `mesh.re2`: Nek re2
   - `mesh.co2`: Nek co2
   - `logfile`: re-direct the printed info from terminal to the logfile.    
      The previous logfile will be backup to `logfile.1`
-  - `Hexes_Hini.vtk`: the vtk file for the mesh (`ifdump=1`). This can be open via ParaView
+  - `Hexes_Hini.vtk`: the vtk file for the mesh (`ifdump=1`). This can be opened via ParaView/Visit
  
 
 ### Notes
-- Currently, Octave is not supported 
-- All boundaries are set to walls `W  ' since there is no other info 
-- The function `dump_nek_re2` is not the fastest version. Potential slow-down for E > 1M
-- The `tet2hex` is a first edition, this can be sped up further.
+- Currently, Octave is not supported.   
+- All boundaries are set to wall 'W  ' since there is no other info.   
+- The function `dump_nek_re2` is not the fastest version. Potential slow-down for E > 10M.   
+- The `tet2hex` is the first edition, this can be sped up further.   
 
 
