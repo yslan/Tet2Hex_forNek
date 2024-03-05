@@ -3,7 +3,7 @@
 This code generates the Hexahedral mesh in Nek5000/NekRS `.re2` format based on tet-to-hex approach.    
 This is a subset of my other code, SphereMesh, for the pebble-bed mesh generation. All right reserved. 
 
-### Usage 
+### Usage 1: arbitraty 3d points
 
 - Main driver: `driver1.m`
 
@@ -62,6 +62,12 @@ This is a subset of my other code, SphereMesh, for the pebble-bed mesh generatio
      The previous logfile will be backup to `logfile.1`
   - `Hexes_Hini.vtk`: the vtk file for the mesh (`ifdump=1`). This can be opened via ParaView/Visit
  
+
+### Usage 2: arbitrary 2d points + extrusion
+
+- Main driver: `driver2.m`       
+
+  This generates the sampling points on sphere surface, tesselate the convexhull into triangles, splits each triangle into 3 quadrilaterals, then extrudes inward to get a sphere shell mesh.
 
 ### Notes
 - Currently, Octave is not supported.   
