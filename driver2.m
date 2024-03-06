@@ -30,13 +30,13 @@ func_rad = @(X) Rinner./sqrt(X(:,1).^2+X(:,2).^2+X(:,3).^2);
 func_proj = @(X) [X(:,1).*func_rad(X), X(:,2).*func_rad(X), X(:,3).*func_rad(X)]; % 3x cost but ok :)
 
 % Template 7: Gauss points on sphere
-Router = 2.0;
-Rinner = 1.0;
+Router = 1.0;
+Rinner = 0.5;
 
-nphi=20;
+nphi=5;
 ntheta=5;
 u=linspace(0,pi,ntheta+1); u=u(2:end); % avoid duplicate pts
-v=linspace(0,2*pi,nphi+2); v=v(2:end-1); % avoid poles
+v=linspace(1/nphi,1-1/nphi,nphi)*pi; v=[v,v+pi]; % avoid poles
 [phi,theta] = meshgrid(u,v);
 
 x=sin(theta(:)).*cos(phi(:));
@@ -60,6 +60,7 @@ fprintf('DONE loading points, #points=%d\n',size(P,1));
 disp_step(1,'Denauley'); t0=tic;
 Perr=chk_Xpts(P,'usr',0); 
 Tri = convhulln(P);
+
 fprintf('DONE BUILD Tri, Ntri=%d (%2.4e sec)\n',size(Tri,1),toc(t0));
 
 
@@ -80,7 +81,12 @@ CBC(con_table==0)=1; % 1='W  ', 2='W01', 3='W03', ...
 
 % Some checks, print metrics
 sc = 'Hini';
-Xerr=chk_Xpts(X,sc,0); chk_hex(X,Hexes,sc); hex_info=chk_hex_metric(X,Hexes,sc);
+Xerr=chk_Xpts(X,sc,0); [~,Herr]=chk_hex(X,Hexes,sc); hex_info=chk_hex_metric(X,Hexes,sc);
+
+if numel(Herr.e2)>0 % fix rhs
+  Hexes = Hexes(:,[5,6,7,8,1,2,3,4]);
+  [~,Herr]=chk_hex(X,Hexes,sc); 
+end
 
 if(ifdump); draw_Hexes_vtk(X,Hexes,CBC,cname,sc,-4);end
 
