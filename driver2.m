@@ -6,8 +6,6 @@ cname='output'; % All new files will go this folder
 
 ifplot = 1; % print initial points distribution, this is expensive for large #P 
 ifdump = 1; % dump mesh into vtk file for further inspection
-Nlevel = 1;
-
 
 gen_logfile(cname,1); % auto gen logfile
 
@@ -32,6 +30,7 @@ func_proj = @(X) [X(:,1).*func_rad(X), X(:,2).*func_rad(X), X(:,3).*func_rad(X)]
 % Template 7: Gauss points on sphere
 Router = 1.0;
 Rinner = 0.5;
+Nlevel = 2;
 
 nphi=5;
 ntheta=5;
